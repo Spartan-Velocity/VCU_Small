@@ -15,14 +15,14 @@ Checks: >
   -cert-dcl16-c,
   -cert-err58-cpp,
   -cppcoreguidelines-avoid-magic-numbers,
-  -llvmlibc-implementation-in-namespace,
-  -llvmlibc-callee-namespace,
   -llvm-include-order,
-  -llvmlibc-restrict-system-libc-headers,
+  -llvmlibc-*,
   -fuchsia-default-arguments-calls,
   -fuchsia-statically-constructed-objects,
   -cppcoreguidelines-avoid-non-const-global-variables,
-  -hicpp-uppercase-literal-suffix
+  -hicpp-uppercase-literal-suffix,
+  -hicpp-avoid-c-arrays,
+  -modernize-use-trailing-return-type
 
 WarningsAsErrors: ''
 HeaderFilterRegex: '^(src|include)/.*'
