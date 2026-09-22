@@ -70,7 +70,7 @@ void poll() {
   }
 }
 
-void enableController(bool enabled) {
+void setEnabled(bool enabled) {
   controllerEnabled = enabled;
 }
 
