@@ -4,6 +4,8 @@
 
 namespace canControllerConfig {
 
+constexpr bool canMonitorEnabled = true;
+
 constexpr uint32_t CAN_BAUD_RATE = 500000u;
 constexpr uint32_t CAN_MAX_MB = 16u;
 

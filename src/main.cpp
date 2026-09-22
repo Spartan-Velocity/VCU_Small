@@ -1,9 +1,10 @@
 #include <Arduino.h>
+#include "can/canController.hpp"
 
 void setup() {
-  // put your setup code here, to run once:
+  canController::initCANBus();
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  canController::pollCANBus();
 }

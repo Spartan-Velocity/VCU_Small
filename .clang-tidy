@@ -22,7 +22,10 @@ Checks: >
   -cppcoreguidelines-avoid-non-const-global-variables,
   -hicpp-uppercase-literal-suffix,
   -hicpp-avoid-c-arrays,
-  -modernize-use-trailing-return-type
+  -modernize-use-trailing-return-type,
+  -misc-use-internal-linkage,
+  -altera-unroll-loops,
+  -fuchsia-default-arguments-declarations
 
 WarningsAsErrors: ''
 HeaderFilterRegex: '^(src|include)/.*'
