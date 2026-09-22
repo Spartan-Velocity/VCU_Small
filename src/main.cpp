@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "can/canController.hpp"
+#include "pump/pumpController.hpp"
 #include "wheelController/wheelController.hpp"
 
 void setup() {
@@ -7,6 +8,7 @@ void setup() {
 
   canController::init();
   // wheelController::init();
+  // pumpController::init();
 }
 
 void loop() {

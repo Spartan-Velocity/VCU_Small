@@ -34,7 +34,7 @@ void onFaultMessage(const canController::Message& msg) {}
 void writeCommandMessage() {
   canController::Message msg{};
 
-  msg.id = wheelControllerConfig::MSGID_TX_COMMAND;
+  msg.id = wheelConfig::MSGID_TX_COMMAND;
   msg.len = 8;
 
   auto enabled = (!lockoutEnabled && controllerEnabled);
@@ -61,14 +61,14 @@ void writeCommandMessage() {
 }  // namespace
 
 void init() {
-  canController::requestMessages(wheelControllerConfig::MSGID_RT_STATES, onStateMessage);
-  canController::requestMessages(wheelControllerConfig::MSGID_RT_FAULTS, onFaultMessage);
+  canController::requestMessages(wheelConfig::MSGID_RT_STATES, onStateMessage);
+  canController::requestMessages(wheelConfig::MSGID_RT_FAULTS, onFaultMessage);
 
   controlTimeout = elapsedMillis();
 }
 
 void poll() {
-  if (controlTimeout >= wheelControllerConfig::MSG_TIMEOUT) {
+  if (controlTimeout >= wheelConfig::COMMAND_MSG_TIMEOUT) {
     writeCommandMessage();
     controlTimeout = elapsedMillis();
   }

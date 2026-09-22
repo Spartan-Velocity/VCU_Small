@@ -56,7 +56,7 @@ void sniffMessage(const Message& msg) {
 }  // namespace
 
 void requestMessages(uint32_t id, _MB_ptr handler, bool extendedID) {
-  if (usedMailboxes >= canControllerConfig::CAN_MAX_MB - 1) {
+  if (usedMailboxes >= canConfig::CAN_MAX_MB - 1) {
     return;
   }
   auto mailbox = FLEXCAN_MAILBOX(usedMailboxes);
@@ -76,7 +76,7 @@ void write(const Message& msg) {
 void init() {
   canBus.begin();
 
-  canBus.setBaudRate(canControllerConfig::CAN_BAUD_RATE);
+  canBus.setBaudRate(canConfig::CAN_BAUD_RATE);
   canBus.setMBFilter(REJECT_ALL);  // disable all mailboxes
 
   canBus.setMB(MB0, TX);  // set mailbox 0 to transmit
@@ -89,7 +89,7 @@ void init() {
   canBus.enableFIFOInterrupt();
 
   // pass dedicated mailbox messages to fifo for debugging
-  canBus.distribute(canControllerConfig::canMonitorEnabled);
+  canBus.distribute(canConfig::canMonitorEnabled);
 }
 
 void poll() {
