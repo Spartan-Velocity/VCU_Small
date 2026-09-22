@@ -11,9 +11,9 @@ FlexCAN_T4<CAN1, RX_SIZE_256, TX_SIZE_16> canBus;
 
 uint8_t usedMailboxes = 0;
 
-void sniffMessage(const CAN_message_t& msg);
+void sniffMessage(const Message& msg);
 
-void sniffMessage(const CAN_message_t& msg) {
+void sniffMessage(const Message& msg) {
   Serial.print("MB=");
   Serial.print(msg.mb);
 
@@ -56,7 +56,7 @@ void sniffMessage(const CAN_message_t& msg) {
 }  // namespace
 
 void requestMessages(uint32_t id, _MB_ptr handler, bool extendedID) {
-  if (usedMailboxes >= 63) {
+  if (usedMailboxes >= canControllerConfig::CAN_MAX_MB - 1) {
     return;
   }
   auto mailbox = FLEXCAN_MAILBOX(usedMailboxes);
@@ -69,7 +69,7 @@ void requestMessages(uint32_t id, _MB_ptr handler, bool extendedID) {
   usedMailboxes++;
 }
 
-void transmitMessage(const CAN_message_t& msg) {
+void writeMessage(const Message& msg) {
   canBus.write(msg);
 }
 

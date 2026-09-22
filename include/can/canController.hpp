@@ -4,8 +4,10 @@
 
 namespace canController {
 
+using Message = CAN_message_t;
+
 void requestMessages(uint32_t id, _MB_ptr handler, bool extendedID = false);
-void transmitMessage(const CAN_message_t& msg);
+void writeMessage(const Message& msg);
 
 void initCANBus();
 void pollCANBus();
