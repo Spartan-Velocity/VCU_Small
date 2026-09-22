@@ -13,11 +13,51 @@ uint8_t usedMailboxes = 0;
 
 void sniffMessage(const CAN_message_t& msg);
 
+void sniffMessage(const CAN_message_t& msg) {
+  Serial.print("MB=");
+  Serial.print(msg.mb);
+
+  Serial.print(" | ID=0x");
+  if (msg.id < 0x1000) {
+    Serial.print("0");
+  }
+  Serial.print(msg.id, HEX);
+
+  Serial.print(msg.flags.extended ? " | EXT" : " | STD");
+
+  Serial.print(" | LEN=");
+  Serial.print(msg.len);
+
+  Serial.print(" | TS=");
+  Serial.print(msg.timestamp);
+
+  Serial.print(" | DATA=");
+  const uint8_t length = min(msg.len, static_cast<uint8_t>(8));
+
+  for (uint8_t index = 0; index < length; ++index) {
+    if (msg.buf[index] < 0x10) {
+      Serial.print("0");
+    }
+
+    Serial.print(msg.buf[index], HEX);
+
+    if (index + 1 < length) {
+      Serial.print(" ");
+    }
+  }
+
+  if (msg.flags.overrun) {
+    Serial.print(" | OVERRUN");
+  }
+
+  Serial.println();
+}
+
 }  // namespace
 
 void requestMessages(uint32_t id, _MB_ptr handler, bool extendedID) {
   if (usedMailboxes >= 63) {
-    return; 
+    return;
   }
   auto mailbox = FLEXCAN_MAILBOX(usedMailboxes);
 
@@ -34,6 +74,9 @@ void transmitMessage(const CAN_message_t& msg) {
 }
 
 void initCANBus() {
+  // TODO: swordpartee - find a better home for serial begin
+  Serial.begin(115200);
+
   canBus.begin();
 
   canBus.setBaudRate(canControllerConfig::CAN_BAUD_RATE);
@@ -66,4 +109,4 @@ void pollCANBus() {
 
 }  // namespace canController
 
-// TODO: report failures when configuring mailboxes
+// TODO: swordpartee - report failures when configuring mailboxes
