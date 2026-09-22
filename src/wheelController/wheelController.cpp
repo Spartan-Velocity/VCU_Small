@@ -22,7 +22,11 @@ void onFaultMessage(const canController::Message& msg);
 void writeCommandMessage();
 
 void onStateMessage(const canController::Message& msg) {
-  lockoutEnabled = bitRead(msg.buf[6], 7u);
+  bool lockoutStatus = bitRead(msg.buf[6], 7u);
+  if (lockoutStatus && !lockoutEnabled) {
+    controllerEnabled = false;
+    lockoutEnabled = true;
+  }
 }
 
 void onFaultMessage(const canController::Message& msg) {}
@@ -30,7 +34,7 @@ void onFaultMessage(const canController::Message& msg) {}
 void writeCommandMessage() {
   canController::Message msg{};
 
-  msg.id = wheelControllerConfig::MSGID_W_COMMAND;
+  msg.id = wheelControllerConfig::MSGID_TX_COMMAND;
   msg.len = 8;
 
   auto enabled = (!lockoutEnabled && controllerEnabled);
@@ -57,8 +61,8 @@ void writeCommandMessage() {
 }  // namespace
 
 void init() {
-  canController::requestMessages(wheelControllerConfig::MSGID_R_STATES, onStateMessage);
-  canController::requestMessages(wheelControllerConfig::MSGID_R_FAULTS, onFaultMessage);
+  canController::requestMessages(wheelControllerConfig::MSGID_RT_STATES, onStateMessage);
+  canController::requestMessages(wheelControllerConfig::MSGID_RT_FAULTS, onFaultMessage);
 
   controlTimeout = elapsedMillis();
 }
