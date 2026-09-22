@@ -101,4 +101,5 @@ void pollCANBus() {
 
 }  // namespace canController
 
+// TODO: swordpartee - write messages to a ring buffer and write to serial in poll
 // TODO: swordpartee - report failures when configuring mailboxes
