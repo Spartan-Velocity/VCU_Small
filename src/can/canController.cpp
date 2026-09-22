@@ -80,27 +80,19 @@ void initCANBus() {
   canBus.begin();
 
   canBus.setBaudRate(canControllerConfig::CAN_BAUD_RATE);
-
-  canBus.distribute(true);  // pass messages to every accepting mailbox
-
   canBus.setMBFilter(REJECT_ALL);  // disable all mailboxes
-                                   //
-  canBus.setMB(MB0, TX);           // set mailbox 0 to transmit
+
+  canBus.setMB(MB0, TX);  // set mailbox 0 to transmit
   usedMailboxes++;
 
-  // set mailbox 1 to sniff all standard id messages
-  canBus.setMB(MB1, RX, STD);
-  canBus.setMBFilter(MB1, ACCEPT_ALL);
-  canBus.onReceive(MB1, sniffMessage);
-  canBus.enableMBInterrupt(MB1);
-  usedMailboxes++;
+  // enable fifo mailbox for message sniffing
+  canBus.enableFIFO();
+  canBus.setFIFOFilter(ACCEPT_ALL);
+  canBus.onReceive(FIFO, sniffMessage);
+  canBus.enableFIFOInterrupt();
 
-  // set mailbox 2 to sniff all extended id messages
-  canBus.setMB(MB2, RX, EXT);
-  canBus.setMBFilter(MB2, ACCEPT_ALL);
-  canBus.onReceive(MB2, sniffMessage);
-  canBus.enableMBInterrupt(MB2);
-  usedMailboxes++;
+  // pass dedicated mailbox messages to fifo for debugging
+  canBus.distribute(canControllerConfig::canMonitorEnabled);
 }
 
 void pollCANBus() {
