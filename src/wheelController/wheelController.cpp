@@ -29,7 +29,11 @@ void onStateMessage(const canController::Message& msg) {
   }
 }
 
-void onFaultMessage(const canController::Message& msg) {}
+void onFaultMessage(const canController::Message& msg) {
+  auto postFaults = msg.buf[0] | (msg.buf[1] << 8) | (msg.buf[2] << 16) | (msg.buf[3] << 24);
+
+  auto runFaults = msg.buf[4] | (msg.buf[5] << 8) | (msg.buf[6] << 16) | (msg.buf[7] << 24);
+}
 
 void writeCommandMessage() {
   canController::Message msg{};
@@ -84,4 +88,4 @@ void setTorque(int16_t torque) {
 
 }  // namespace wheelController
 
-// TODO: swordpartee - switch to using multiple devices
+// TODO: swordpartee - fault reporting
