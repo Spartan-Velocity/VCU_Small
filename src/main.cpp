@@ -3,11 +3,13 @@
 #include "wheelController/wheelController.hpp"
 
 void setup() {
+  Serial.begin(115200);
+
   canController::init();
-  wheelController::init();
+  // wheelController::init();
 }
 
 void loop() {
   canController::poll();
-  wheelController::poll();
+  // wheelController::poll();
 }

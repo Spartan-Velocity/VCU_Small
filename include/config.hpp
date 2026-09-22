@@ -15,9 +15,9 @@ namespace wheelControllerConfig {
 
 constexpr uint32_t WHEEL_CONTROLLER_CANID = 0x0A0u;
 
-constexpr uint32_t MSGID_TX_COMMAND_OFFSET = 0x20u;
-constexpr uint32_t MSGID_RT_STATES_OFFSET = 0x0Au;
-constexpr uint32_t MSGID_RT_FAULTS_OFFSET = 0x0Bu;
+constexpr uint32_t MSGID_TX_COMMAND = WHEEL_CONTROLLER_CANID + 0x20u;
+constexpr uint32_t MSGID_RT_STATES = WHEEL_CONTROLLER_CANID + 0x0Au;
+constexpr uint32_t MSGID_RT_FAULTS = WHEEL_CONTROLLER_CANID + 0x0Bu;
 
 constexpr uint16_t MSG_TIMEOUT = 10;
 

@@ -74,9 +74,6 @@ void write(const Message& msg) {
 }
 
 void init() {
-  // TODO: swordpartee - find a better home for serial begin
-  Serial.begin(115200);
-
   canBus.begin();
 
   canBus.setBaudRate(canControllerConfig::CAN_BAUD_RATE);
