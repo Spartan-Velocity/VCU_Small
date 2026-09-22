@@ -14,18 +14,20 @@ Checks: >
   -readability-uppercase-literal-suffix,
   -cert-dcl16-c,
   -cert-err58-cpp,
-  -cppcoreguidelines-avoid-magic-numbers,
   -llvm-include-order,
   -llvmlibc-*,
   -fuchsia-default-arguments-calls,
+  -fuchsia-default-arguments-declarations,
   -fuchsia-statically-constructed-objects,
+  -cppcoreguidelines-avoid-magic-numbers,
   -cppcoreguidelines-avoid-non-const-global-variables,
+  -cppcoreguidelines-pro-bounds-constant-array-index,
   -hicpp-uppercase-literal-suffix,
   -hicpp-avoid-c-arrays,
+  -hicpp-signed-bitwise
   -modernize-use-trailing-return-type,
   -misc-use-internal-linkage,
   -altera-unroll-loops,
-  -fuchsia-default-arguments-declarations
 
 WarningsAsErrors: ''
 HeaderFilterRegex: '^(src|include)/.*'
