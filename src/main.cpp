@@ -3,11 +3,11 @@
 #include "wheelController/wheelController.hpp"
 
 void setup() {
-  canController::initCANBus();
-  wheelController::initWheelController();
+  canController::init();
+  wheelController::init();
 }
 
 void loop() {
-  canController::pollCANBus();
-  wheelController::pollWheelController();
+  canController::poll();
+  wheelController::poll();
 }

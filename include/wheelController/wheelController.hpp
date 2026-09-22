@@ -1,8 +1,13 @@
 #pragma once
 
+#include <cstdint>
+
 namespace wheelController {
 
-void initWheelController();
-void pollWheelController();
+void setEnabled(bool enabled);
+void setTorque(int16_t torque);
 
-} // namespace wheelController
+void init();
+void poll();
+
+}  // namespace wheelController

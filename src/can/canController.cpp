@@ -69,11 +69,11 @@ void requestMessages(uint32_t id, _MB_ptr handler, bool extendedID) {
   usedMailboxes++;
 }
 
-void writeMessage(const Message& msg) {
+void write(const Message& msg) {
   canBus.write(msg);
 }
 
-void initCANBus() {
+void init() {
   // TODO: swordpartee - find a better home for serial begin
   Serial.begin(115200);
 
@@ -95,7 +95,7 @@ void initCANBus() {
   canBus.distribute(canControllerConfig::canMonitorEnabled);
 }
 
-void pollCANBus() {
+void poll() {
   canBus.events();
 }
 

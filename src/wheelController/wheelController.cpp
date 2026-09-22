@@ -51,23 +51,31 @@ void writeCommandMessage() {
   msg.buf[6] = 0;
   msg.buf[7] = 0;
 
-  canController::writeMessage(msg);
+  canController::write(msg);
 }
 
 }  // namespace
 
-void initWheelController() {
+void init() {
   canController::requestMessages(wheelControllerConfig::MSGID_R_STATES, onStateMessage);
   canController::requestMessages(wheelControllerConfig::MSGID_R_FAULTS, onFaultMessage);
 
   controlTimeout = elapsedMillis();
 }
 
-void pollWheelController() {
+void poll() {
   if (controlTimeout >= wheelControllerConfig::MSG_TIMEOUT) {
     writeCommandMessage();
     controlTimeout = elapsedMillis();
   }
+}
+
+void enableController(bool enabled) {
+  controllerEnabled = enabled;
+}
+
+void setTorque(int16_t torque) {
+  commandedTorque = torque;
 }
 
 }  // namespace wheelController
