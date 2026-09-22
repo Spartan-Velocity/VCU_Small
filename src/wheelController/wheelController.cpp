@@ -22,7 +22,7 @@ void onFaultMessage(const canController::Message& msg);
 void writeCommandMessage();
 
 void onStateMessage(const canController::Message& msg) {
-  bool lockoutStatus = bitRead(msg.buf[6], 7u);
+  bool lockoutStatus = bitRead(msg.buf[6], 7);
   if (lockoutStatus && !lockoutEnabled) {
     controllerEnabled = false;
     lockoutEnabled = true;
@@ -34,7 +34,7 @@ void onFaultMessage(const canController::Message& msg) {}
 void writeCommandMessage() {
   canController::Message msg{};
 
-  msg.id = wheelControllerConfig::MSGID_TX_COMMAND;
+  msg.id = wheelControllerConfig::WHEEL_CONTROLLER_CANID + wheelControllerConfig::MSGID_TX_COMMAND_OFFSET;
   msg.len = 8;
 
   auto enabled = (!lockoutEnabled && controllerEnabled);
@@ -61,8 +61,8 @@ void writeCommandMessage() {
 }  // namespace
 
 void init() {
-  canController::requestMessages(wheelControllerConfig::MSGID_RT_STATES, onStateMessage);
-  canController::requestMessages(wheelControllerConfig::MSGID_RT_FAULTS, onFaultMessage);
+  canController::requestMessages(wheelControllerConfig::WHEEL_CONTROLLER_CANID + wheelControllerConfig::MSGID_RT_STATES_OFFSET, onStateMessage);
+  canController::requestMessages(wheelControllerConfig::WHEEL_CONTROLLER_CANID + wheelControllerConfig::MSGID_RT_FAULTS_OFFSET, onFaultMessage);
 
   controlTimeout = elapsedMillis();
 }
@@ -83,3 +83,5 @@ void setTorque(int16_t torque) {
 }
 
 }  // namespace wheelController
+
+// TODO: swordpartee - switch to using multiple devices

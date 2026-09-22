@@ -24,7 +24,7 @@ Checks: >
   -cppcoreguidelines-pro-bounds-constant-array-index,
   -hicpp-uppercase-literal-suffix,
   -hicpp-avoid-c-arrays,
-  -hicpp-signed-bitwise
+  -hicpp-signed-bitwise,
   -modernize-use-trailing-return-type,
   -misc-use-internal-linkage,
   -altera-unroll-loops,
