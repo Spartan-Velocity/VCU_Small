@@ -1,5 +1,8 @@
 #include <Arduino.h>
 #include "can/canController.hpp"
+#include "core_pins.h"
+#include "display/displayController.hpp"
+
 #include "pump/pumpController.hpp"
 #include "wheelController/wheelController.hpp"
 
@@ -9,6 +12,12 @@ void setup() {
   canController::init();
   // wheelController::init();
   // pumpController::init();
+  displayController::init();
+
+  delay(500);
+
+  displayController::writeVal("loaded", 1);
+
 }
 
 void loop() {
