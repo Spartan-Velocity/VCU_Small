@@ -35,6 +35,8 @@ void writeCmd(const char* cmd) {
 void init() {
   displayConfig::NEXTION.begin(displayConfig::DISPLAY_BAUD);
 
+  Serial.println("Connecting to Nextion...");
+
   // wait for nextion to connect
   auto timeout = elapsedMillis();
 
