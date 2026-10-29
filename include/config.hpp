@@ -36,7 +36,7 @@ constexpr float PUMP_PWM_DUTYCYCLE = 14;  // Min allowed duty cycle is 13%
 
 namespace displayConfig {
 
-inline auto& NEXTION = Serial1;
+inline auto& NEXTION = Serial5;
 constexpr uint32_t DISPLAY_BAUD = 9600;
 constexpr uint16_t DISPLAY_TIMEOUT = 5000;
 

@@ -16,8 +16,8 @@ void setup() {
 
   delay(500);
 
+  Serial.println("Bike ready");
   displayController::writeVal("loaded", 1);
-
 }
 
 void loop() {
