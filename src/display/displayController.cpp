@@ -40,9 +40,6 @@ void init() {
   // wait for nextion to connect
   auto timeout = elapsedMillis();
 
-  while (displayConfig::NEXTION.available() != 0) {
-    displayConfig::NEXTION.read();
-  }
   while (displayConfig::NEXTION.available() == 0) {
     if (timeout > displayConfig::DISPLAY_TIMEOUT) {
       Serial.println("Nextion timeout");
@@ -51,13 +48,14 @@ void init() {
     writeCmd("connect");
     delay(200);
   }
+
+  writeCmd("blkcmd=3");
+  
   while (displayConfig::NEXTION.available() != 0) {
     displayConfig::NEXTION.read();
   }
 
-  writeCmd("blkcmd=3");
-
   Serial.println("Nextion connected");
 }
 
-}
+}  // namespace displayController
