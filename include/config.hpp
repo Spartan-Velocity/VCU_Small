@@ -5,7 +5,6 @@
 #include "IntervalTimer.h"
 #include "SoftwareSerial.h"
 
-
 namespace canConfig {
 
 constexpr bool canMonitorEnabled = true;
@@ -43,4 +42,4 @@ inline auto NEXTION = SoftwareSerial(16, 17);
 constexpr uint32_t DISPLAY_BAUD = 9600;
 constexpr uint16_t DISPLAY_TIMEOUT = 5000;
 
-} // namespace displayConfig
+}  // namespace displayConfig
